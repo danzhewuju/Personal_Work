@@ -9,21 +9,25 @@ import java.sql.Date;
 @Entity
 @Table(name = "invest", schema = "fund", catalog = "")
 public class InvestEntity {
-    private int iid;  //id
+    private int iid;
+    private int uid;
+    private int fid;
     private String mode;//模式
-    private Date firstdate;
-    private Date today;
-    private double getincome;//已实现收益
-    private double thisincome;//本轮收益
+    private Date firstdate;//首日投资日期
+    private Date today;//今天日期
+    private double getincome;//已实现盈利
+    private double thisincome;//本轮盈利
     private int count;//轮次
-    private double amount;//账目总资产
+    private double amount;//账目的总资产
     private double proalo;//持仓盈亏
-    private double rifa;//涨幅度
-    private double invest;//投资额度
-    private double firstyearprofit;//首年化数
+    private double rifa;//涨跌幅
+    private double invest;//投资份额
+    private double firstyearprofit;//首度年化
+    private FundEntity fundByFid;
+    private  UserEntity userByUid;
 
     @Id
-    @Column(name = "iid")
+    @Column(name = "iid", nullable = false)
     public int getIid() {
         return iid;
     }
@@ -33,7 +37,30 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "mode")
+    @Column(name = "uid" ,insertable = false,updatable = false)
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+    @Basic
+    @Column(name = "fid",insertable = false,updatable = false)
+    public int getFid() {
+        return fid;
+    }
+
+    public void setFid(int fid) {
+        this.fid = fid;
+    }
+
+
+
+
+
+    @Basic
+    @Column(name = "mode", nullable = false, length = 50)
     public String getMode() {
         return mode;
     }
@@ -43,7 +70,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "firstdate")
+    @Column(name = "firstdate", nullable = false)
     public Date getFirstdate() {
         return firstdate;
     }
@@ -53,7 +80,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "today")
+    @Column(name = "today", nullable = false)
     public Date getToday() {
         return today;
     }
@@ -63,7 +90,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "getincome")
+    @Column(name = "getincome", nullable = false, precision = 0)
     public double getGetincome() {
         return getincome;
     }
@@ -73,7 +100,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "thisincome")
+    @Column(name = "thisincome", nullable = false, precision = 0)
     public double getThisincome() {
         return thisincome;
     }
@@ -83,7 +110,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "count")
+    @Column(name = "count", nullable = false)
     public int getCount() {
         return count;
     }
@@ -93,7 +120,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false, precision = 0)
     public double getAmount() {
         return amount;
     }
@@ -103,7 +130,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "proalo")
+    @Column(name = "proalo", nullable = false, precision = 0)
     public double getProalo() {
         return proalo;
     }
@@ -113,7 +140,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "rifa")
+    @Column(name = "rifa", nullable = false, precision = 0)
     public double getRifa() {
         return rifa;
     }
@@ -123,7 +150,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "invest")
+    @Column(name = "invest", nullable = false, precision = 0)
     public double getInvest() {
         return invest;
     }
@@ -133,7 +160,7 @@ public class InvestEntity {
     }
 
     @Basic
-    @Column(name = "firstyearprofit")
+    @Column(name = "firstyearprofit", nullable = false, precision = 0)
     public double getFirstyearprofit() {
         return firstyearprofit;
     }
@@ -189,5 +216,25 @@ public class InvestEntity {
         temp = Double.doubleToLongBits(firstyearprofit);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "fid", referencedColumnName = "fid", nullable = false)
+    public FundEntity getFundByFid() {
+        return fundByFid;
+    }
+
+    public void setFundByFid(FundEntity fundByFid) {
+        this.fundByFid = fundByFid;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "uid", referencedColumnName = "uid", nullable = false)
+    public UserEntity getUserByUid() {
+        return userByUid;
+    }
+
+    public void setUserByUid(UserEntity userByUid) {
+        this.userByUid = userByUid;
     }
 }

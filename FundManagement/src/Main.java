@@ -1,11 +1,16 @@
 import DatabaseDao.FundDao;
+import DatabaseDao.InvestDao;
 import DatabaseDao.UserDao;
 import Page.Fund;
+import Page.Invest;
 import Page.User;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
+
+import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by Alx on 2017/7/26.
@@ -30,12 +35,12 @@ public class Main {
     public static void main(final String[] args) throws Exception {
 
 
-        UserDao userDao=new UserDao();
-        User user=userDao.getUserBycolumn("uid","10000");
-        System.out.println(user.getUid());
+//        InvestDao investDao=new InvestDao();
+//        List<Invest> invests=investDao.getInvestBycolumn("uid","10000","fid","100000");
+//        System.out.println(invests.size());
 
-        FundDao fundDao=new FundDao();
-       Fund fund=new Fund();
+//        FundDao fundDao=new FundDao();
+//       Fund fund=new Fund();
 //        fund.setName("天使基金");
 //        fund.setPlatform("天使基金平台");
 //        fund.setBallpark("大");
@@ -43,10 +48,14 @@ public class Main {
 //        fund.setBgrade(4);
 //        fund.setManager("余豪");
 //        fund.setMgrade(5);
-        Fund fund1=fundDao.getFundBycolumn("fid","100003");
-      fundDao.DelFund(fund1);
+ //       Fund fund1=fundDao.getFundBycolumn("fid","100003");
+ //     fundDao.DelFund(fund1);
 //        fundDao.AddFund(fund);
 
+        Date date=new Date(2017,7,21);
+        Invest invest=new Invest(1,10000,100000,"日投",date,date,12.0,25,1,12569,145,25,3654,145);
+        InvestDao investDao=new InvestDao();
+        investDao.updateBycolumn(invest);
 
     }
 }

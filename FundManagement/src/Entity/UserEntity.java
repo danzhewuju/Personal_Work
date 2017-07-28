@@ -13,7 +13,7 @@ public class UserEntity {
     private Double account;
 
     @Id
-    @Column(name = "uid")
+    @Column(name = "uid", nullable = false)
     public int getUid() {
         return uid;
     }
@@ -23,7 +23,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", nullable = true, length = 50)
     public String getPassword() {
         return password;
     }
@@ -33,7 +33,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "account")
+    @Column(name = "account", nullable = true, precision = 0)
     public Double getAccount() {
         return account;
     }

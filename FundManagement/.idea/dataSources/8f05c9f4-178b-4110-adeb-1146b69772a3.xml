@@ -170,43 +170,46 @@
     <index id="37" parent="11" name="uikey">
       <ColNames>uid</ColNames>
     </index>
-    <key id="38" parent="11" name="PRIMARY">
+    <index id="38" parent="11" name="Index 4">
+      <ColNames>iid</ColNames>
+    </index>
+    <key id="39" parent="11" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>iid</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="39" parent="11" name="uikey">
+    <foreign-key id="40" parent="11" name="uikey">
       <ColNames>uid</ColNames>
       <RefSchemaName>fund</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>uid</RefColNames>
     </foreign-key>
-    <foreign-key id="40" parent="11" name="FK__fund">
+    <foreign-key id="41" parent="11" name="FK__fund">
       <ColNames>fid</ColNames>
       <RefSchemaName>fund</RefSchemaName>
       <RefTableName>fund</RefTableName>
       <RefColNames>fid</RefColNames>
     </foreign-key>
-    <column id="41" parent="12" name="uid">
+    <column id="42" parent="12" name="uid">
       <Position>1</Position>
       <Comment>用户名id</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="42" parent="12" name="password">
+    <column id="43" parent="12" name="password">
       <Position>2</Position>
       <Comment>用户的密码</Comment>
       <DataType>varchar(50)|0</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="43" parent="12" name="account">
+    <column id="44" parent="12" name="account">
       <Position>3</Position>
       <Comment>用户的账户资金</Comment>
       <DataType>float|0</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <key id="44" parent="12" name="PRIMARY">
+    <key id="45" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>uid</ColNames>
       <Primary>1</Primary>

@@ -18,7 +18,7 @@ public class FundEntity {
     private int mgrade;
 
     @Id
-    @Column(name = "fid")
+    @Column(name = "fid", nullable = false)
     public int getFid() {
         return fid;
     }
@@ -28,7 +28,7 @@ public class FundEntity {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = true, length = 50)
     public String getName() {
         return name;
     }
@@ -38,7 +38,7 @@ public class FundEntity {
     }
 
     @Basic
-    @Column(name = "platform")
+    @Column(name = "platform", nullable = true, length = 50)
     public String getPlatform() {
         return platform;
     }
@@ -48,7 +48,7 @@ public class FundEntity {
     }
 
     @Basic
-    @Column(name = "ballpark")
+    @Column(name = "ballpark", nullable = true, length = 50)
     public String getBallpark() {
         return ballpark;
     }
@@ -58,7 +58,7 @@ public class FundEntity {
     }
 
     @Basic
-    @Column(name = "grade")
+    @Column(name = "grade", nullable = true)
     public Integer getGrade() {
         return grade;
     }
@@ -68,7 +68,7 @@ public class FundEntity {
     }
 
     @Basic
-    @Column(name = "bgrade")
+    @Column(name = "bgrade", nullable = true)
     public Integer getBgrade() {
         return bgrade;
     }
@@ -78,7 +78,7 @@ public class FundEntity {
     }
 
     @Basic
-    @Column(name = "manager")
+    @Column(name = "manager", nullable = false, length = 50)
     public String getManager() {
         return manager;
     }
@@ -88,7 +88,7 @@ public class FundEntity {
     }
 
     @Basic
-    @Column(name = "mgrade")
+    @Column(name = "mgrade", nullable = false)
     public int getMgrade() {
         return mgrade;
     }

@@ -6,7 +6,10 @@ import java.sql.Date;
  * Created by Alx on 2017/7/26.
  */
 public class Invest {
+
     private int iid;
+    private int uid;
+    private int fid;
     private String mode;
     private Date firstdate;
     private Date today;
@@ -22,8 +25,41 @@ public class Invest {
     public Invest() {
     }
 
+    public Invest(int iid, int uid, int fid, String mode, Date firstdate, Date today, double getincome, double thisincome, int count, double amount, double proalo, double rifa, double invest, double firstyearprofit) {
+        this.iid = iid;
+        this.uid = uid;
+        this.fid = fid;
+        this.mode = mode;
+        this.firstdate = firstdate;
+        this.today = today;
+        this.getincome = getincome;
+        this.thisincome = thisincome;
+        this.count = count;
+        this.amount = amount;
+        this.proalo = proalo;
+        this.rifa = rifa;
+        this.invest = invest;
+        this.firstyearprofit = firstyearprofit;
+    }
+
     public int getIid() {
         return iid;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public int getFid() {
+        return fid;
+    }
+
+    public void setFid(int fid) {
+        this.fid = fid;
     }
 
     public void setIid(int iid) {
