@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `fund` (
   `manager` varchar(50) NOT NULL DEFAULT '0' COMMENT '基金经理',
   `mgrade` int(11) NOT NULL DEFAULT '0' COMMENT '经理评分',
   PRIMARY KEY (`fid`)
-) ENGINE=InnoDB AUTO_INCREMENT=100004 DEFAULT CHARSET=utf8 COMMENT='基金表';
+) ENGINE=InnoDB AUTO_INCREMENT=100001 DEFAULT CHARSET=utf8 COMMENT='基金表';
 
 -- 正在导出表  fund.fund 的数据：~1 rows (大约)
 /*!40000 ALTER TABLE `fund` DISABLE KEYS */;
@@ -51,15 +51,19 @@ CREATE TABLE IF NOT EXISTS `invest` (
   `rifa` float NOT NULL COMMENT '涨幅',
   `invest` float NOT NULL DEFAULT '5000' COMMENT '投资份额',
   `firstyearprofit` float NOT NULL COMMENT '首日年化',
+  `bsale` int(11) NOT NULL DEFAULT '0' COMMENT '1表示正在投资该基金',
   PRIMARY KEY (`iid`),
   KEY `uikey` (`uid`),
   KEY `FK__fund` (`fid`),
+  KEY `Index 4` (`iid`),
   CONSTRAINT `FK__fund` FOREIGN KEY (`fid`) REFERENCES `fund` (`fid`),
   CONSTRAINT `uikey` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='信息记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='信息记录表';
 
--- 正在导出表  fund.invest 的数据：~0 rows (大约)
+-- 正在导出表  fund.invest 的数据：~1 rows (大约)
 /*!40000 ALTER TABLE `invest` DISABLE KEYS */;
+REPLACE INTO `invest` (`iid`, `uid`, `fid`, `mode`, `firstdate`, `today`, `getincome`, `thisincome`, `count`, `amount`, `proalo`, `rifa`, `invest`, `firstyearprofit`, `bsale`) VALUES
+	(1, 10000, 100000, '日投', '3917-08-21', '3917-08-21', 12, 25, 1, 12569, 145, 25, 3654, 0.26, 0);
 /*!40000 ALTER TABLE `invest` ENABLE KEYS */;
 
 -- 导出  表 fund.user 结构

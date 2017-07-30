@@ -1,6 +1,7 @@
 package Control;
 
 import DatabaseDao.UserDao;
+import MiddleClass.UserInvest;
 import Page.User;
 
 import javax.servlet.ServletException;
@@ -20,10 +21,18 @@ public class Login extends HttpServlet {
         String mypassword=request.getParameter("mypassword");
         UserDao userDao=new UserDao();
         User user=userDao.getUserBycolumn("uid",myusername);
-        if(user.getPassword().equals(mypassword))
+        if(user!=null&&mypassword!=null)
         {
-            request.getSession().setAttribute("user",user);
-            response.sendRedirect("menu.jsp");
+            if(user.getPassword().equals(mypassword))
+            {
+                request.getSession().setAttribute("user",user);
+                response.sendRedirect("CheckInvest");
+            }
+            else
+            {
+                response.sendRedirect("login.jsp");
+            }
+
         }
         else
         {

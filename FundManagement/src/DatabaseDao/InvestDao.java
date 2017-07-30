@@ -1,7 +1,9 @@
 package DatabaseDao;
 
 import Entity.InvestEntity;
+import Page.Fund;
 import Page.Invest;
+import Page.User;
 import Unit.HibernateUtils;
 import org.hibernate.Session;
 
@@ -30,6 +32,7 @@ public class InvestDao {
         invest.setRifa(investEntity.getRifa());
         invest.setInvest(investEntity.getInvest());
         invest.setFirstyearprofit(investEntity.getFirstyearprofit());
+        invest.setBsale(investEntity.getBsale());
         return  invest;
 
     }
@@ -50,6 +53,7 @@ public class InvestDao {
         investEntity.setRifa(invest.getRifa());
         investEntity.setInvest(invest.getInvest());
         investEntity.setFirstdate(invest.getFirstdate());
+        investEntity.setBsale(invest.getBsale());
         HibernateUtils.closeSession(session);
         return  investEntity;
 
@@ -101,6 +105,26 @@ public class InvestDao {
         return  flag;
 
     }
+
+
+    public  List<Fund> getFund(User user )
+    {
+        List<Fund> funds=new ArrayList<>();
+        Session session=HibernateUtils.getSession();
+        String hql=" from InvestEntity where uid="+"'"+user.getUid()+"'"+" group by fid ";
+        List<InvestEntity> investEntities=session.createQuery(hql).list();
+        FundDao fundDao=new FundDao();
+        for(InvestEntity investEntity:investEntities)
+        {
+            Fund fund=fundDao.getFundBycolumn("fid", String.valueOf(investEntity.getFid()) );
+            funds.add(fund);
+        }
+        HibernateUtils.closeSession(session);
+        return  funds;
+
+
+    }
+
 
 
 }

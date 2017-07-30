@@ -1,6 +1,7 @@
 package Page;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 
 /**
  * Created by Alx on 2017/7/26.
@@ -21,6 +22,9 @@ public class Invest {
     private double rifa;
     private double invest;
     private double firstyearprofit;
+    private int bsale;
+
+    private double xxir;
 
     public Invest() {
     }
@@ -40,6 +44,7 @@ public class Invest {
         this.rifa = rifa;
         this.invest = invest;
         this.firstyearprofit = firstyearprofit;
+
     }
 
     public int getIid() {
@@ -152,5 +157,27 @@ public class Invest {
 
     public void setFirstyearprofit(double firstyearprofit) {
         this.firstyearprofit = firstyearprofit;
+    }
+
+    public int getBsale() {
+        return bsale;
+    }
+
+    public void setBsale(int bsale) {
+        this.bsale = bsale;
+    }
+
+    public double getXxir() {
+        return xxir;
+    }
+
+    public void setXxir() {
+        double pay=amount-thisincome;
+        xxir=thisincome/pay*365;
+
+        DecimalFormat df=new DecimalFormat("0.0000");
+        xxir=Double.valueOf(df.format(xxir)) ;
+
+        //查找相关资料
     }
 }

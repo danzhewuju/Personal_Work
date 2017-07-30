@@ -38,23 +38,36 @@ public class FundDao {
         return  fund;
     }
 
-    public  void AddFund(Fund fund){
+    public  boolean  AddFund(Fund fund){
         boolean flag;
-
-        FundEntity fundEntity=new FundEntity();
-        fundEntity.setFid(fund.getFid());
-        fundEntity.setName(fund.getName());
-        fundEntity.setPlatform(fund.getPlatform());
-        fundEntity.setBallpark(fund.getBallpark());
-        fundEntity.setGrade(fund.getGrade());
-        fundEntity.setBgrade(fund.getBgrade());
-        fundEntity.setManager(fund.getManager());
-        fundEntity.setMgrade(fund.getMgrade());
         Session session=HibernateUtils.getSession();
-        session.beginTransaction();
-        session.save(fundEntity);
-        session.getTransaction().commit();
-        HibernateUtils.closeSession(session);
+        try {
+            FundEntity fundEntity=new FundEntity();
+            fundEntity.setFid(fund.getFid());
+            fundEntity.setName(fund.getName());
+            fundEntity.setPlatform(fund.getPlatform());
+            fundEntity.setBallpark(fund.getBallpark());
+            fundEntity.setGrade(fund.getGrade());
+            fundEntity.setBgrade(fund.getBgrade());
+            fundEntity.setManager(fund.getManager());
+            fundEntity.setMgrade(fund.getMgrade());
+
+            session.beginTransaction();
+            session.save(fundEntity);
+            session.getTransaction().commit();
+          flag=true;
+        } catch (Exception e)
+        {
+            session.getTransaction().rollback();
+            flag=false;
+        }
+        finally {
+            HibernateUtils.closeSession(session);
+        }
+        return flag;
+
+
+
     }
 
     public  void DelFund(Fund fund)

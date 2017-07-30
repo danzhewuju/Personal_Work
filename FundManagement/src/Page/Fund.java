@@ -17,6 +17,17 @@ public class Fund {
 
 
     public Fund() {
+
+    }
+
+    public Fund(String name, String platform, String ballpark, Integer grade, Integer bgrade, String manager, int mgrade) {
+        this.name = name;
+        this.platform = platform;
+        this.ballpark = ballpark;
+        this.grade = grade;
+        this.bgrade = bgrade;
+        this.manager = manager;
+        this.mgrade = mgrade;
     }
 
     public int getFid() {

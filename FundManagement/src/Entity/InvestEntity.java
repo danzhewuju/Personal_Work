@@ -25,6 +25,8 @@ public class InvestEntity {
     private double firstyearprofit;//首度年化
     private FundEntity fundByFid;
     private  UserEntity userByUid;
+    private int bsale;
+
 
     @Id
     @Column(name = "iid", nullable = false)
@@ -45,6 +47,7 @@ public class InvestEntity {
     public void setUid(int uid) {
         this.uid = uid;
     }
+
     @Basic
     @Column(name = "fid",insertable = false,updatable = false)
     public int getFid() {
@@ -54,10 +57,6 @@ public class InvestEntity {
     public void setFid(int fid) {
         this.fid = fid;
     }
-
-
-
-
 
     @Basic
     @Column(name = "mode", nullable = false, length = 50)
@@ -236,5 +235,15 @@ public class InvestEntity {
 
     public void setUserByUid(UserEntity userByUid) {
         this.userByUid = userByUid;
+    }
+
+    @Basic
+    @Column(name = "bsale")
+    public int getBsale() {
+        return bsale;
+    }
+
+    public void setBsale(int bsale) {
+        this.bsale = bsale;
     }
 }
