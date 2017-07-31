@@ -12,6 +12,7 @@
     <%@include file="title.jsp"%>
     <script type="text/javascript">
 
+        var xmlhttp;
         function getdate() {
             var today=new Date();
             var month=today.getMonth()+1;
@@ -28,7 +29,25 @@
 
         window.onload=getdate;
 
+function validate() {
+    xmlhttp=new XMLHttpRequest();
+    var fid;
+    var obj=document.getElementById("fid");
+    var index=obj.selectedIndex;
+    fid=obj.options[index].value;
+    xmlhttp.onreadystatechange=function () {
+        if(xmlhttp.readyState==4&&xmlhttp.status==200)
+            var message=xmlhttp.responseText;
+            var obj=eval("("+message+")");
+            document.getElementById("firstdate").value=obj.firstdate;
+            document.getElementById("invest").value=obj.invest;
 
+      //  document.getElementById("invest").value=message;
+
+    }
+    xmlhttp.open("GET","AjaxTest?fid="+fid,true);
+    xmlhttp.send();
+}
     </script>
 
 
@@ -146,7 +165,7 @@
 
         <div class="col-md-6 column">
             <h3 class="text-center color-picker-label">基金信息更新管理</h3>
-            <form class="form-horizontal" role="form" action="InvestEveryDay" method="post">
+            <form class="form-horizontal" action="InvestEveryDay" method="post">
                 <div class="form-group">
                     <label id="handle" class="col-sm-2 control-label">操作人</label>
                     <div class="col-sm-10">
@@ -156,10 +175,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">基金</label>
                     <div class="col-sm-5">
-                        <select class="form-control">
+                        <select class="form-control"  id="fid" onchange="validate()">
+                            <option value="" >请选择</option>
                             <c:forEach var="i" begin="0" end="${sessionScope.userinvest.count}" step="1">
                                 <c:if test="${i!=sessionScope.userinvest.count}">
-                                    <option value="${sessionScope.userinvest.investings[i].fund.fid}">${sessionScope.userinvest.investings[i].fund.name} </option>
+                                    <option value="${sessionScope.userinvest.investings[i].fund.fid}" >${sessionScope.userinvest.investings[i].fund.name} </option>
                                 </c:if>
                             </c:forEach>
 
@@ -167,14 +187,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">首日投资</label>
+                    <label class="col-sm-2 control-label">首日投资日期</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="firstdate" name="firstdate"   readonly />
+                        <input type="date" class="form-control" id="firstdate" name="firstdate"   readonly />
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">首日投资</label>
+                    <label class="col-sm-2 control-label">今日投资日期</label>
                     <div class="col-sm-10">
                         <input type="date" class="form-control" id="today" name="today"   />
                     </div>
@@ -187,9 +207,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">本轮收益</label>
+                    <label class="col-sm-2 control-label">已实现盈利</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="thisincome" name="thisincome"   />
+                        <input type="text" class="form-control" id="getincome" name="getincome"   />
                     </div>
                 </div>
                 <div class="form-group">

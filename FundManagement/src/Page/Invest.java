@@ -23,14 +23,13 @@ public class Invest {
     private double invest;
     private double firstyearprofit;
     private int bsale;
-
     private double xxir;
 
     public Invest() {
     }
 
-    public Invest(int iid, int uid, int fid, String mode, Date firstdate, Date today, double getincome, double thisincome, int count, double amount, double proalo, double rifa, double invest, double firstyearprofit) {
-        this.iid = iid;
+    public Invest( int uid, int fid, String mode, Date firstdate, Date today, double getincome, double thisincome, int count, double amount, double proalo, double rifa, double invest, double firstyearprofit,int bsale) {
+
         this.uid = uid;
         this.fid = fid;
         this.mode = mode;
@@ -44,6 +43,8 @@ public class Invest {
         this.rifa = rifa;
         this.invest = invest;
         this.firstyearprofit = firstyearprofit;
+        this.bsale=bsale;
+
 
     }
 
@@ -179,5 +180,9 @@ public class Invest {
         xxir=Double.valueOf(df.format(xxir)) ;
 
         //查找相关资料
+    }
+
+    public void setXxir(double xxir) {
+        this.xxir = xxir;
     }
 }

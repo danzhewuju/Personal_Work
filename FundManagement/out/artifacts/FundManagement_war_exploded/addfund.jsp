@@ -12,21 +12,61 @@
     <%@include file="title.jsp"%>
     <script type="text/javascript">
         function check() {
-            var message=${sessionScope.message};
-            if(message!=null)
+            var message="${sessionScope.message}";
+            if(message!="")
             {
                 alert(message);
+
             }
 
         }
 
-        window.onload=check;
+
+        function Buyfund(fid) {
+           window.location.href="BuyFund?fid="+fid;
+            
+        }
     </script>
 </head>
 <body>
+<% session.removeAttribute("message");%>
 <div class="container">
     <div class="row clearfix">
-        <div class="col-md-2 column">
+        <div class="col-md-4 column">
+            <h2 class="text-center">推荐的基金</h2>
+            <div class="panel-group" id="panel-878465">
+
+                <c:forEach var="i" begin="0" end="${sessionScope.funds.count}" step="1">
+                    <c:if test="${i!=sessionScope.funds.count}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="panel-title" data-toggle="collapse" data-parent="#panel-878465" href="#panel-element-605933${i}">${sessionScope.funds.funds[i].name}</a>
+
+                            </div>
+                            <div id="panel-element-605933${i}" class="panel-collapse in">
+                               <ul>
+                                   <li>
+                                       平台:${sessionScope.funds.funds[i].platform}
+                                   </li>
+                                   <li>
+                                       经理:${sessionScope.funds.funds[i].manager}
+                                   </li>
+                                   <li>
+                                       评分:${sessionScope.funds.funds[i].grade}分
+                                   </li>
+
+                               </ul>
+                                <button class="btn btn-danger" onclick="Buyfund('${sessionScope.funds.funds[i].fid}')">购买该基金</button>
+                            </div>
+                        </div>
+
+
+                    </c:if>
+
+                </c:forEach>
+
+
+        </div>
         </div>
         <div class="col-md-8 column">
             <h3 class="text-center">添加基本的基金信息</h3>
@@ -126,9 +166,9 @@
             </div>
 
         </div>
-        <div class="col-md-2 column">
-        </div>
+
     </div>
 </div>
+
 </body>
 </html>

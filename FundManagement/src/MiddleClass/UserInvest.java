@@ -2,6 +2,7 @@ package MiddleClass;
 
 import DatabaseDao.InvestDao;
 import Page.Fund;
+import Page.Invest;
 import Page.User;
 
 import java.util.ArrayList;
@@ -50,6 +51,17 @@ public class UserInvest {//用户的投资情况
     public void setAllinvest(ArrayList<FundInvest> allinvest) {
         this.allinvests= allinvest;
     }
+    public void setAllinvest() {
+        InvestDao investDao=new InvestDao();
+        ArrayList<Fund> funds= (ArrayList<Fund>) investDao.getFund(user);//获取已有用户的基金列表
+        allinvests=new ArrayList<>();
+        for(Fund fund:funds)
+        {
+            FundInvest fundInvest=new FundInvest(fund,user);
+            allinvests.add(fundInvest);
+        }
+        allcount=allinvests.size();//全部的基金的相关信息
+    }
 
     public int getAllcount() {
         return allcount;
@@ -68,6 +80,7 @@ public class UserInvest {//用户的投资情况
     }
     public void setInvestings() {
         investings=new ArrayList<>();
+        ammount=0;
         for(FundInvest fundInvest:allinvests)
         {
             if (fundInvest.getCount()>0)
@@ -104,4 +117,34 @@ public class UserInvest {//用户的投资情况
         this.allinvests = allinvests;
     }
 
+    public  void addInvest(Invest invest)//将一笔交易加入整个系统中
+    {
+
+
+        for (int i = 0; i < count; i++) {
+            if (investings.get(i).getFund().getFid() == invest.getFid()) {
+                investings.get(i).addInvesting(invest);//如果是追加的投资就会加入正在投资里面
+                break;
+            }
+            if (i == count - 1)//最后没有表明是对该基金的第一次投资
+            {
+                for (int j = 0; j < allcount; j++) {
+                    FundInvest fundInvest = allinvests.get(j);
+
+                    if (fundInvest.getFund().getFid() == invest.getFid()) {
+                        investings.add(fundInvest);
+                        count++;
+                        break;
+                    }
+                    if (j == allcount - 1) {//直接从数据库更新
+                        setAllinvest();
+                        setInvestings();
+                    }
+                }
+            }
+
+
+        }
+
+    }
 }

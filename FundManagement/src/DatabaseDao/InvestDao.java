@@ -1,11 +1,14 @@
 package DatabaseDao;
 
+import Entity.FundEntity;
 import Entity.InvestEntity;
+import Entity.UserEntity;
 import Page.Fund;
 import Page.Invest;
 import Page.User;
 import Unit.HibernateUtils;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +41,9 @@ public class InvestDao {
     }
     public  InvestEntity InvesttoInvestEntity(Invest invest)
     {
-       Session session=HibernateUtils.getSession();
-       InvestEntity investEntity=session.load(InvestEntity.class,invest.getIid());
+
+        InvestEntity investEntity=new InvestEntity();
+        investEntity.setIid(invest.getIid());
         investEntity.setUid(invest.getUid());
         investEntity.setFid(invest.getFid());
         investEntity.setMode(invest.getMode());
@@ -52,13 +56,14 @@ public class InvestDao {
         investEntity.setProalo(invest.getProalo());
         investEntity.setRifa(invest.getRifa());
         investEntity.setInvest(invest.getInvest());
-        investEntity.setFirstdate(invest.getFirstdate());
+        investEntity.setFirstyearprofit(invest.getFirstyearprofit());
         investEntity.setBsale(invest.getBsale());
-        HibernateUtils.closeSession(session);
+
         return  investEntity;
 
 
     }
+
 
 
     public List<Invest> getInvestBycolumn(String column, String key) {
@@ -92,27 +97,72 @@ public class InvestDao {
 
     public boolean updateBycolumn(Invest invest) {
         boolean flag = false;
-        if (invest != null) {
-            Session session = HibernateUtils.getSession();
+        Session session = HibernateUtils.getSession();
+        try {
             session.beginTransaction();
-           InvestEntity investEntity=InvesttoInvestEntity(invest);
-           session.update(investEntity);
-           session.getTransaction().commit();
-           flag=true;
-        } else {
-             flag=false;
+            InvestEntity investEntity=InvesttoInvestEntity(invest);
+            UserEntity userEntity=session.get(UserEntity.class,invest.getUid());
+            investEntity.setUserByUid(userEntity);
+            FundEntity fundEntity=session.get(FundEntity.class,invest.getFid());
+            investEntity.setFundByFid(fundEntity);
+            session.update(investEntity);
+            session.getTransaction().commit();
+            flag=true;
+        } catch (Exception e)
+        {
+
+            flag=false;
         }
+        finally {
+            HibernateUtils.closeSession(session);
+        }
+
+
+
+
+
+
+
+
         return  flag;
 
     }
 
+public  boolean addInvest(Invest invest)
+{
+    boolean flag;
+    Session session=HibernateUtils.getSession();
+    try
+    {   session.beginTransaction();
+        InvestEntity investEntity=InvesttoInvestEntity(invest);
+        UserEntity userEntity=session.get(UserEntity.class,invest.getUid());
+        investEntity.setUserByUid(userEntity);
+        FundEntity fundEntity=session.get(FundEntity.class,invest.getFid());
+        investEntity.setFundByFid(fundEntity);
+        session.save(investEntity);
+        session.getTransaction().commit();
+        flag=true;
+
+    }
+    catch (Exception e)
+    {
+        session.getTransaction().rollback();
+        flag=false;
+    }finally {
+        HibernateUtils.closeSession(session);
+    }
+   return flag;
+
+
+}
 
     public  List<Fund> getFund(User user )
     {
         List<Fund> funds=new ArrayList<>();
         Session session=HibernateUtils.getSession();
-        String hql=" from InvestEntity where uid="+"'"+user.getUid()+"'"+" group by fid ";
-        List<InvestEntity> investEntities=session.createQuery(hql).list();
+        String hql=" from InvestEntity where uid=:uid group by fid ";
+       Query query=session.createQuery(hql).setParameter("uid",user.getUid());
+        List<InvestEntity> investEntities=query.list();
         FundDao fundDao=new FundDao();
         for(InvestEntity investEntity:investEntities)
         {
@@ -124,6 +174,9 @@ public class InvestDao {
 
 
     }
+
+
+
 
 
 

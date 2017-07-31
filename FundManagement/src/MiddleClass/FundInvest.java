@@ -116,5 +116,10 @@ public class FundInvest {//每个基金的投资次数
     public void setInvestings(List<Invest> investing) {
         this.investings = investing;
     }
+    public  void addInvesting( Invest invest){
+    investings.add(invest);
+    count++;
+
+    }
 
 }

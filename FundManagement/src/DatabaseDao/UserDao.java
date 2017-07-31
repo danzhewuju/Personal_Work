@@ -35,6 +35,15 @@ public class UserDao {
         HibernateUtils.closeSession(session);
         return user;
     }
+    public  void getUserByid( int  id)
+    {
+        Session session=HibernateUtils.getSession();
+        session.beginTransaction();
+        UserEntity userEntity=session.get(UserEntity.class,id);
+        HibernateUtils.closeSession(session);
+
+    }
+
 
 
 }

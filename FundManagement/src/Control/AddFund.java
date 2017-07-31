@@ -1,7 +1,10 @@
 package Control;
 
 import DatabaseDao.FundDao;
+import MiddleClass.Funds;
+import MiddleClass.UserInvest;
 import Page.Fund;
+import Page.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Alx on 2017/7/30.
@@ -49,6 +53,30 @@ public class AddFund extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        UserInvest userInvest= (UserInvest) request.getSession().getAttribute("userinvest");
+        Funds funds=new Funds();
+
+     ArrayList<Integer> re=new ArrayList<>();
+
+        for(int i=0;i<funds.getCount();i++)
+        {
+            for(int j=0;j<userInvest.getCount();j++)
+            {
+                if(funds.getFunds().get(i).getFid()==userInvest.getInvestings().get(j).getFund().getFid())
+                {
+                    re.add(i);
+                    break;
+
+                }
+            }
+        }
+       funds.delfund(re);//去除掉已经购买基金的部分
+        request.getSession().setAttribute("funds",funds);
+        response.sendRedirect("addfund.jsp");
+
+
+
 
     }
 }

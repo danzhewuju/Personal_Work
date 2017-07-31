@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -49,19 +50,38 @@ public class Main {
 //        fund.setBgrade(4);
 //        fund.setManager("余豪");
 //        fund.setMgrade(5);
- //       Fund fund1=fundDao.getFundBycolumn("fid","100003");
- //     fundDao.DelFund(fund1);
+//        /fund.setFid(100001);
 //        fundDao.AddFund(fund);
+// //       Fund fund1=fundDao.getFundBycolumn("fid","100003");
 
-//        Date date=new Date(2017,7,21);
-//      Invest invest=new Invest(1,10000,100000,"日投",date,date,12.0,25,1,12569,145,25,3654,145);InvestDao investDao=new InvestDao();
-//       investDao.updateBycolumn(invest);
-        User user=new User();
-        user.setAccount(1000.0);
-        user.setPassword("123456");
-        user.setUid(1000);
-        JSONObject jsonObject=JSONObject.fromObject(user);
-        System.out.println(jsonObject.toString());
+
+
+     //   fundDao.AddFund(fund);
+//       Date date=new Date(2017,7,21);
+//      Invest invest=new Invest(10000,100000,"yuhao",date,date,12.0,25,1,12569,145,25,3654.0,99.6,1);
+//      invest.setIid(1);
+//      InvestDao investDao=new InvestDao();
+//     investDao.updateBycolumn(invest);
+  //      InvestDao investDao=new InvestDao();
+//        investDao.Test();
+
+
+//        User user=new User();
+//        user.setAccount(1000.0);
+//        user.setPassword("123456");
+//        user.setUid(10000);
+//        UserDao userDao=new UserDao();
+
+//        JSONObject jsonObject=JSONObject.fromObject(user);
+//        System.out.println(jsonObject.toString());
+
+//UserDao userDao=new UserDao();
+//userDao.getUserByid(10000);
+
+        java.util.Date date=new java.util.Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String time=sdf.format(date);
+        System.out.println(time);
 
     }
 }

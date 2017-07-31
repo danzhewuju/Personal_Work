@@ -7,6 +7,7 @@ import Unit.HibernateUtils;
 
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,23 @@ public class FundDao {
         }
         HibernateUtils.closeSession(session);
         return  fund;
+    }
+
+    public ArrayList<Fund> getAllFund(){
+        ArrayList<Fund> funds=new ArrayList<>();
+        Session session=HibernateUtils.getSession();
+        String hql="from FundEntity";
+        ArrayList<FundEntity> fundEntities= (ArrayList<FundEntity>) session.createQuery(hql).list();
+        for(FundEntity fundEntity:fundEntities)
+        {
+            Fund fund=new Fund(fundEntity.getName(),fundEntity.getPlatform(),fundEntity.getBallpark(),fundEntity.getGrade(),
+                    fundEntity.getBgrade(),fundEntity.getManager(),fundEntity.getMgrade());
+            fund.setFid(fundEntity.getFid());
+            funds.add(fund);
+
+        }
+        return funds;
+
     }
 
     public  boolean  AddFund(Fund fund){

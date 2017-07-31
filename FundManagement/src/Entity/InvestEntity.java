@@ -1,5 +1,8 @@
 package Entity;
 
+import Unit.HibernateUtils;
+import org.hibernate.Session;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -227,6 +230,10 @@ public class InvestEntity {
         this.fundByFid = fundByFid;
     }
 
+
+
+
+
     @ManyToOne
     @JoinColumn(name = "uid", referencedColumnName = "uid", nullable = false)
     public UserEntity getUserByUid() {
@@ -236,6 +243,7 @@ public class InvestEntity {
     public void setUserByUid(UserEntity userByUid) {
         this.userByUid = userByUid;
     }
+
 
     @Basic
     @Column(name = "bsale")

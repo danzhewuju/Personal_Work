@@ -29,19 +29,23 @@ public class AjaxTest extends HttpServlet {
 
        int fid=Integer.valueOf(request.getParameter("fid"));
         UserInvest userInvest= (UserInvest) request.getSession().getAttribute("userinvest");
-        double invest=5000.0;
+        Invest invest = null;
 
        for(int i=0;i<userInvest.getCount();i++)
        {
            if(fid==userInvest.getInvestings().get(i).getFund().getFid())
            {
                int count=userInvest.getInvestings().get(i).getCount();
-               invest=userInvest.getInvestings().get(i).getAllinvests().get(count-1).getInvest();
+               invest=userInvest.getInvestings().get(i).getAllinvests().get(count-1);
+               request.getSession().setAttribute("investindex",i);//记录选择基金的索引
                break;
            }
        }
+       request.getSession().setAttribute("lastinvest",invest);
 
-       response.getWriter().write(String.valueOf(invest));
+       String investjson="{invest:"+invest.getInvest()+",firstdate:"+"'"+invest.getFirstdate()+"'"+"}";
+       System.out.println(investjson);
+       response.getWriter().write(investjson);
 
 
 

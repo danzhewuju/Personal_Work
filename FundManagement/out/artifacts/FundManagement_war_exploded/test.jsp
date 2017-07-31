@@ -37,7 +37,7 @@
                 var message=xmlhttp.responseText;
                 var user=eval("("+message+")");
                 alert("id="+user.id+"password"+user.password);
-                
+
                }
 
            }
@@ -49,16 +49,16 @@
     </script>
 </head>
 <body>
-<h3 class="text-center color-picker-label">基金信息更新管理</h3>
-<form class="form-horizontal" role="form" action="InvestEveryDay" method="post">
+<% request.getSession().setAttribute("yuhao",12);
+int i= (int) request.getSession().getAttribute("yuhao");
+i+=100;
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label">首日投资</label>
-        <div class="col-sm-10">
-            <input type="date" class="form-control" id="today" name="today"   />
-        </div>
-    </div>
 
-</form>
+%>
+<script type="text/javascript" >
+
+    alert("${sessionScope.yuhao}");
+</script>
+
 </body>
 </html>

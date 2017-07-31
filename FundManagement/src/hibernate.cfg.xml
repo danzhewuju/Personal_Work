@@ -7,16 +7,10 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/fund</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.pool_size">100</property>
-
-        <property name="jdbc.fetch_size">50 </property>
-
-        <property name="hibernate.show_sql">true </property>
-
         <property name="connection.username">root</property>
-
         <property name="connection.password">chingblxyh666888</property>
-
-        <property name="jdbc.batch_size">23 </property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="c3p0.min_size">25</property>
 
         <mapping class="Entity.FundEntity"/>
         <mapping class="Entity.InvestEntity"/>
