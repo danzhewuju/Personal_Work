@@ -147,4 +147,21 @@ public class UserInvest {//用户的投资情况
         }
 
     }
+    public  void salefund(Fund fund)
+    {
+        for(FundInvest fundInvest:investings)
+        {
+            if(fund.getFid()==fundInvest.getFund().getFid())
+            {
+                fundInvest.saleFund(fund);
+                investings.remove(fundInvest);
+                count--;
+                break;
+
+            }
+        }//修改正在投资里面的参数
+        setAllinvest();
+
+
+    }
 }

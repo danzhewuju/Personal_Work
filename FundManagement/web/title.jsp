@@ -28,7 +28,7 @@
             <ul class="nav navbar-nav">
                 <li ><a href="CheckInvest">本轮投资查询</a></li>
                 <li><a href="InvestEveryDay">今日定投</a></li>
-                <li><a href="#contact">出售基金</a></li>
+                <li><a href="SaleFund.jsp">出售基金</a></li>
                 <li><a href="AddFund">基金添加</a></li>
 
             </ul>

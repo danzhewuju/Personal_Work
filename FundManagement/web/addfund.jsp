@@ -43,7 +43,7 @@
                                 <a class="panel-title" data-toggle="collapse" data-parent="#panel-878465" href="#panel-element-605933${i}">${sessionScope.funds.funds[i].name}</a>
 
                             </div>
-                            <div id="panel-element-605933${i}" class="panel-collapse in">
+                            <div id="panel-element-605933${i}" class="panel-collapse collapse">
                                <ul>
                                    <li>
                                        平台:${sessionScope.funds.funds[i].platform}

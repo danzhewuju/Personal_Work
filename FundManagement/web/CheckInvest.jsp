@@ -10,6 +10,58 @@
 <head>
     <title>基金管理系统</title>
     <%@include file="title.jsp"%>
+    <script src="js/echarts.js"></script>
+    <script type="text/javascript">
+        var json='${sessionScope.json}';
+        var obj=eval("("+json+")");
+        function  setdate(i) {
+
+            var date=new Array();
+            for (var j=0;j<obj.jsonIncomes[i].count;j++)
+            {
+                date[j]=obj.jsonIncomes[i].dates[j];
+            }
+            return date;
+
+        }
+        function setprofit(i) {
+            var profit=new Array();
+            for (var j=0;j<obj.jsonIncomes[i].count;j++)
+            {
+                profit[j]=obj.jsonIncomes[i].investingincome[j];
+
+            }
+            return profit;
+
+        }
+        function draw(i) {
+            // 基于准备好的dom，初始化echarts实例
+            /*1*/     var myChart = echarts.init(document.getElementById(i));
+
+            // 指定图表的配置项和数据
+            /*2*/      var option = {
+                title: {
+                    text: '信息表'
+                },
+                tooltip: {},
+                legend: {
+                    data:['收益']
+                },
+                xAxis: {
+                    data: setdate(i)
+                },
+                yAxis: {},
+                series: [{
+                    name: '收益',
+                    type: 'bar',
+                    data: setprofit(i)
+                }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            /*3*/     myChart.setOption(option);
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -209,9 +261,40 @@
 
                   </div>
         <div class="col-md-6 column">
+
+            <c:forEach var="i" begin="0" end="${sessionScope.userinvest.count}" step="1">
+                <c:if test="${i!=sessionScope.userinvest.count}">
+
+
+                    <div class="panel-group" id="panel-442786${i}" >
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="panel-title" data-toggle="collapse" data-parent="#panel-442786" href="#panel-element-874778${i}" >${sessionScope.userinvest.investings[i].fund.name}盈利表</a>
+                            </div>
+                            <div id="panel-element-874778${i}" class="panel-collapse collapse in">
+                                <div id="${i}" class="panel-body" style="height: 400px;width:400px">
+                                    <script type="text/javascript">
+                                        draw('${i}');
+
+                                    </script>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </c:if>
+
+            </c:forEach>
+
+
+
         </div>
     </div>
 </div>
+
+
 
 
 

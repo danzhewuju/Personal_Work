@@ -6,6 +6,7 @@ import Page.Invest;
 import Page.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class FundInvest {//每个基金的投资次数
         this.user=user;
         setAllinvests();//从数据库读取相关信息 allinvest,allcount
         setInvestings();//获得当前该基金的投资情况
-        profit=getInvestings().get(getCount()-1).getThisincome();//本轮盈利
+
 
 
 
@@ -91,6 +92,8 @@ public class FundInvest {//每个基金的投资次数
            }
         }
         count=investings.size();
+        setProfit();
+
     }
 
     public double getProfit() {
@@ -101,6 +104,14 @@ public class FundInvest {//每个基金的投资次数
         this.profit = profit;
     }
 
+    public void setProfit() {
+        profit=0;
+        if(count>0)
+        {
+            profit=investings.get(count-1).getThisincome();
+        }
+
+    }
     public static User getUser() {
         return user;
     }
@@ -121,5 +132,50 @@ public class FundInvest {//每个基金的投资次数
     count++;
 
     }
+    public  void saleFund(Fund salefund)//用户卖完基金
+    {
+        InvestDao investDao=new InvestDao();
+        for(int i=0;i<count;i++)
+        {
+            for(int j=0;j<allcount;j++)
+            {
+                if(investings.get(i).getIid()==allinvests.get(j).getIid())
+                {
+                    allinvests.get(j).setBsale(0);
+                    investDao.updateBycolumn(allinvests.get(j));//写入数据库
+                }
+            }
+        }
+        investings.clear();//清空正在投资列表
+        count=0;//正在投资的数目为0
+
+    }
+
+    public ArrayList<String> getJsonDate(){
+        ArrayList<String> dates=new ArrayList<>();
+        for(Invest invest:investings)
+        {
+            String date= String.valueOf(invest.getToday());
+            dates.add(date);
+        }
+        return dates;
+    }
+
+    public  ArrayList<Double> getjsondayprofit(){
+        ArrayList<Double> dayprofit=new ArrayList<>();
+       for (int i=0;i<count;i++)
+       {
+           if(i==0)
+           {
+               dayprofit.add(0.0);
+
+           }
+           else {
+               dayprofit.add(investings.get(i).getThisincome()-investings.get(i-1).getThisincome());
+           }
+       }
+       return dayprofit;
+    }
+
 
 }

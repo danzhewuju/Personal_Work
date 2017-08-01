@@ -20,9 +20,15 @@
             {
                 month="0"+month;
             }
+            var day=today.getDate();
+            if(day<=9)
+            {
+                day="0"+day;
+            }
 
 
-            var  date = (today.getFullYear()) +"-" + month  + "-" + today.getDate() ;
+
+            var  date = (today.getFullYear()) +"-" + month  + "-" + day ;
 
             document.getElementById("today").value=date;
         }

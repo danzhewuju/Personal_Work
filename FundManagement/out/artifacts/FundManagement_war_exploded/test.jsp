@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: Alx
@@ -9,56 +10,65 @@
 <html>
 <head>
     <title>test</title>
-    <%@include file="title.jsp"%>
+    <script src="js/echarts.js"></script>
     <script type="text/javascript">
 
+        function draw() {
+            // 基于准备好的dom，初始化echarts实例
+            /*1*/     var myChart = echarts.init(document.getElementById('main'));
 
-        function getdate() {
-            var today=new Date();
-            var month=today.getMonth()+1;
-            if(month<=9)
-            {
-                month="0"+month;
-            }
+            // 指定图表的配置项和数据
+            /*2*/      var option = {
+                title: {
+                    text: '信息表'
+                },
+                tooltip: {},
+                legend: {
+                    data:['收益']
+                },
+                xAxis: {
+                    data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '收益',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }]
+            };
 
-
-          var  date = (today.getFullYear()) +"-" + month  + "-" + today.getDate() ;
-
-            document.getElementById("today").value=date;
+            // 使用刚指定的配置项和数据显示图表。
+            /*3*/     myChart.setOption(option);
         }
-        window.onload=getdate;
-        var xmlhttp;
-        function ajax() {
-           xmlhttp=new XMLHttpRequest();
-           xmlhttp.onreadystatechange=function () {
-               if(xmlhttp.readyState==4&&xmlhttp.status==200)
-               {
-
-                var message=xmlhttp.responseText;
-                var user=eval("("+message+")");
-                alert("id="+user.id+"password"+user.password);
-
-               }
-
-           }
-           xmlhttp.open("GET","AjaxTest",true);
-           xmlhttp.send();
-
-        }
-        window.onload=ajax;
     </script>
 </head>
-<body>
-<% request.getSession().setAttribute("yuhao",12);
-int i= (int) request.getSession().getAttribute("yuhao");
-i+=100;
+<div id="main" style="height: 400px;width: 400px" ></div>
+<script type="text/javascript">
+    draw();
 
+
+</script>
+<body>
+<%! String json1; %>
+<%
+    String json= (String) session.getAttribute("json");
+    System.out.println("************************************");
+    System.out.println(json);
+    json1=json;
 
 %>
-<script type="text/javascript" >
+<p> <%= json1%></p>
 
-    alert("${sessionScope.yuhao}");
+<script type="text/javascript">
+    var json2='<%=json1%>';
+    var obj=eval("("+json2+")");
+    alert(obj.count);
+
 </script>
+
+
+
+
 
 </body>
 </html>
