@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="FundManagement:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/FundSystem</output-path>
+    <root id="archive" name="FundManagement_war.war">
+      <element id="artifact" artifact-name="FundManagement:war exploded" />
+    </root>
+  </artifact>
+</component>

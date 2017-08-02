@@ -33,7 +33,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="../navbar/">操作细则</a></li>
+
                 <li><a href="login.jsp">安全退出</a></li>
 
             </ul>
